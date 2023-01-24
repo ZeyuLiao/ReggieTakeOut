@@ -92,6 +92,17 @@ public class DishController {
         return Result.success("Update Successfully");
     }
 
+    @PostMapping("/status/{status}")
+    public Result<String> updateStatus(Long[] ids, @PathVariable int status){
+        for(long id:ids){
+            log.info("Status update for:{}",id);
+            Dish dish = dishService.getById(id);
+            dish.setStatus(status);
+            dishService.updateById(dish);
+        }
+        return Result.success("Status Change Successfully");
+    }
+
     @DeleteMapping
     public Result<String> delete(Long[] ids){
         for(Long id :ids){
@@ -99,6 +110,21 @@ public class DishController {
             dishService.removeById(id);
         }
         return Result.success("Delete Successfully");
+    }
+
+    @GetMapping("/list")
+    public Result<List<Dish>> get(Dish dish) {
+        //条件查询器
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        //根据传进来的categoryId查询
+        queryWrapper.eq(dish.getCategoryId() != null, Dish::getCategoryId, dish.getCategoryId());
+        //只查询状态为1的菜品（启售菜品）
+        queryWrapper.eq(Dish::getStatus, 1);
+        //简单排下序，其实也没啥太大作用
+        queryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+        //获取查询到的结果作为返回值
+        List<Dish> list = dishService.list(queryWrapper);
+        return Result.success(list);
     }
 
 }
