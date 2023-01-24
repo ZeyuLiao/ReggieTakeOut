@@ -17,3 +17,5 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: assign_id
+reggie:
+  path: C:\Users\ZeyuLiao\IdeaProjects\ReggieTakeOut\src\main\resources\uploadedimages\
