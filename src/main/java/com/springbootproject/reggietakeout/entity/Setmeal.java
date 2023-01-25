@@ -8,33 +8,43 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * 套餐
+ */
 @Data
-public class ComboDish implements Serializable {
+public class Setmeal implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
 
-    //套餐id
-    private Long comboId;
+    //分类id
+    private Long categoryId;
 
 
-    //菜品id
-    private Long dishId;
-
-
-    //菜品名称 （冗余字段）
+    //套餐名称
     private String name;
 
-    //菜品原价
+
+    //套餐价格
     private BigDecimal price;
 
-    //份数
-    private Integer copies;
+
+    //状态 0:停用 1:启用
+    private Integer status;
 
 
-    //排序
-    private Integer sort;
+    //编码
+    private String code;
+
+
+    //描述信息
+    private String description;
+
+
+    //图片
+    private String image;
 
 
     @TableField(fill = FieldFill.INSERT)
@@ -52,7 +62,4 @@ public class ComboDish implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
-
-    //是否删除
-    private Integer isDeleted;
 }

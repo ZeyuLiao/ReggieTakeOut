@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.springbootproject.reggietakeout.common.CustomException;
 import com.springbootproject.reggietakeout.common.Result;
 import com.springbootproject.reggietakeout.entity.Category;
-import com.springbootproject.reggietakeout.entity.Combo;
+import com.springbootproject.reggietakeout.entity.Setmeal;
 import com.springbootproject.reggietakeout.entity.Dish;
 import com.springbootproject.reggietakeout.mapper.CategoryMapper;
 import com.springbootproject.reggietakeout.service.CategoryService;
-import com.springbootproject.reggietakeout.service.ComboService;
+import com.springbootproject.reggietakeout.service.SetmealService;
 import com.springbootproject.reggietakeout.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     DishService dishService;
 
     @Autowired
-    ComboService comboService;
+    SetmealService setmealService;
 
 
     @Override
@@ -43,12 +43,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             throw new CustomException("当前分类下关联了菜品，不能删除");
         }
 
-        LambdaQueryWrapper<Combo> comboLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Setmeal> setmealLambdaQueryWrapper = new LambdaQueryWrapper<>();
         //添加dish查询条件，根据分类id进行查询
-        comboLambdaQueryWrapper.eq(Combo::getCategoryId,id);
-        int count2 = comboService.count(comboLambdaQueryWrapper);
+        setmealLambdaQueryWrapper.eq(Setmeal::getCategoryId,id);
+        int count2 = setmealService.count(setmealLambdaQueryWrapper);
         //方便Debug用的
-        log.info("combo查询条件，查询到的条目数为：{}",count2);
+        log.info("setmeal查询条件，查询到的条目数为：{}",count2);
         //查看当前分类是否关联了套餐，如果已经关联，则抛出异常
         if (count2 > 0){
             //已关联套餐，抛出一个业务异常
