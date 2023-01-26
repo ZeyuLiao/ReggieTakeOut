@@ -46,7 +46,7 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
         List<Setmeal> list = this.list(setmealLambdaQueryWrapper);
         log.info("查询到的数据为：{}",list);
         if (count > 0) {
-            throw new CustomException("套餐正在售卖中，请先停售再进行删除");
+            throw new CustomException("You have to disable a combo before delete it");
         }
         //如果没有在售套餐，则直接删除
         this.removeByIds(ids);

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>瑞吉外卖管理端</title>
+  <title>Reggie Take Out Management Client</title>
   <link rel="shortcut icon" href="../../favicon.ico">
   <!-- 引入样式 -->
   <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
@@ -26,21 +26,21 @@
       <div class="login-form">
         <el-form ref="loginForm" :model="loginForm" :rules="loginRules" >
           <div class="login-form-title">
-            <img src="../../images/login/logo.png" style="width:139px;height:42px;" alt="" />
+            <img src="../../images/login/logo.png" style="width:256px;height:64px;" alt="" />
           </div>
           <el-form-item prop="username">
-            <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号" maxlength="20"
+            <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="Account" maxlength="20"
               prefix-icon="iconfont icon-user" />
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="loginForm.password" type="password" placeholder="密码" prefix-icon="iconfont icon-lock" maxlength="20"
+            <el-input v-model="loginForm.password" type="password" placeholder="password" prefix-icon="iconfont icon-lock" maxlength="20"
               @keyup.enter.native="handleLogin" />
           </el-form-item>
           <el-form-item style="width:100%;">
             <el-button :loading="loading" class="login-btn" size="medium" type="primary" style="width:100%;"
               @click.native.prevent="handleLogin">
-              <span v-if="!loading">登录</span>
-              <span v-else>登录中...</span>
+              <span v-if="!loading">login</span>
+              <span v-else>login...</span>
             </el-button>
           </el-form-item>
         </el-form>
@@ -64,8 +64,8 @@
       data() {
         return {
           loginForm:{
-            username: 'admin',
-            password: '123456'
+            username: '',
+            password: ''
           },
           loading: false
         }
@@ -74,14 +74,14 @@
         loginRules() {
           const validateUsername = (rule, value, callback) => {
             if (value.length < 1 ) {
-              callback(new Error('请输入用户名'))
+              callback(new Error('Input your account id'))
             } else {
               callback()
             }
           }
           const validatePassword = (rule, value, callback) => {
             if (value.length < 6) {
-              callback(new Error('密码必须在6位以上'))
+              callback(new Error('Password must be over 6 digits'))
             } else {
               callback()
             }

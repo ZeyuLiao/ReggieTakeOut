@@ -174,47 +174,47 @@
           class="demo-ruleForm"
         >
           <div>
-            <el-form-item label="套餐名称:" prop="name" >
-              <el-input v-model="ruleForm.name" placeholder="请填写套餐名称" maxlength="20"/>
+            <el-form-item label="Combo Name:" prop="name" >
+              <el-input v-model="ruleForm.name" placeholder="Please fill all blanks" maxlength="20"/>
             </el-form-item>
-            <el-form-item label="套餐分类:" prop="idType">
-              <el-select v-model="ruleForm.idType" placeholder="请选择套餐分类" @change="$forceUpdate()">
+            <el-form-item label="Combo Category:" prop="idType">
+              <el-select v-model="ruleForm.idType" placeholder="Please choose combo categories" @change="$forceUpdate()">
                 <el-option v-for="(item, index) in setMealList" :key="index" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
           </div>
           <div>
-            <el-form-item label="套餐价格:" prop="price">
-              <el-input v-model="ruleForm.price" placeholder="请设置套餐价格" />
+            <el-form-item label="Combo Price:" prop="price">
+              <el-input v-model="ruleForm.price" placeholder="Please Set Price" />
             </el-form-item>
           </div>
           <div>
-            <el-form-item label="套餐菜品:" class="setmealFood">
+            <el-form-item label="Includes:" class="setmealFood">
               <el-form-item>
                 <div class="addDish">
-                  <span v-if="dishTable.length == 0" class="addBut" @click="openAddDish"> + 添加菜品</span>
+                  <span v-if="dishTable.length == 0" class="addBut" @click="openAddDish"> + Add Dish</span>
                   <div v-if="dishTable.length != 0" class="content">
-                    <div class="addBut" style="margin-bottom: 20px" @click="openAddDish">+ 添加菜品</div>
+                    <div class="addBut" style="margin-bottom: 20px" @click="openAddDish">+ Add Dish</div>
                     <div class="table">
                       <el-table :data="dishTable" style="width: 100%">
-                        <el-table-column prop="name" label="名称" width="180" align="center"></el-table-column>
-                        <el-table-column prop="price" label="原价" width="180">
+                        <el-table-column prop="name" label="Name" width="180" align="center"></el-table-column>
+                        <el-table-column prop="price" label="Price" width="180">
                           <template slot-scope="scope"> {{ Number(scope.row.price) / 100 }} </template>
                         </el-table-column>
-                        <el-table-column prop="address" label="份数" align="center">
+                        <el-table-column prop="address" label="Pieces" align="center">
                           <template slot-scope="scope">
                             <el-input-number
                               v-model="scope.row.copies"
                               size="small"
                               :min="1"
                               :max="99"
-                              label="描述文字"
+                              label="Description"
                             ></el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column prop="address" label="操作" width="180px;" align="center">
+                        <el-table-column prop="address" label="Operation" width="180px;" align="center">
                           <template slot-scope="scope">
-                            <el-button type="text" size="small" @click="delDishHandle(scope.$index)"> 删除 </el-button>
+                            <el-button type="text" size="small" @click="delDishHandle(scope.$index)"> Delete </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -225,7 +225,7 @@
             </el-form-item>
           </div>
           <div>
-            <el-form-item label="套餐图片:" class="uploadImg">
+            <el-form-item label="Images:" class="uploadImg">
               <el-upload
                 class="avatar-uploader"
                 action="/common/upload"
@@ -240,28 +240,28 @@
             </el-form-item>
           </div>
           <div class="address">
-            <el-form-item label="套餐描述:">
-              <el-input v-model="ruleForm.description" type="textarea" :rows="3" placeholder="套餐描述，最长200字" maxlength="200"/>
+            <el-form-item label="Description:">
+              <el-input v-model="ruleForm.description" type="textarea" :rows="3" placeholder="Description no more than 200 words." maxlength="200"/>
             </el-form-item>
           </div>
           <div class="subBox address">
             <el-form-item>
-              <el-button @click="goBack()"> 取消 </el-button>
-              <el-button type="primary" @click="submitForm('ruleForm', false)"> 保存 </el-button>
+              <el-button @click="goBack()"> Cancel </el-button>
+              <el-button type="primary" @click="submitForm('ruleForm', false)"> Save </el-button>
               <el-button
                 v-if="actionType == 'add'"
                 type="primary"
                 class="continue"
                 @click="submitForm('ruleForm', true)"
               >
-                保存并继续添加套餐
+                Save&Continue
               </el-button>
             </el-form-item>
           </div>
         </el-form>
       </div>
       <el-dialog
-        title="添加菜品"
+        title="Add Dish"
         class="addDishList"
         :visible.sync="dialogVisible"
         width="60%"
@@ -270,7 +270,7 @@
         <el-input
           v-model="value"
           class="seachDish"
-          placeholder="请输入菜品名称进行搜索"
+          placeholder="Search by dish name"
           style="width: 250px"
           size="small"
           clearable
@@ -295,7 +295,7 @@
             <div class="tabList">
               <div class="table">
                 <div v-if="dishAddList.length == 0" style="padding-left:10px">
-                  暂无菜品!
+                  No Dishes Available!
                 </div>
                 <el-checkbox-group
                   v-if="dishAddList.length > 0"
@@ -313,7 +313,7 @@
                     >
                       <div class="item">
                         <span style="flex: 3;text-align: left">{{ item.dishName }}</span>
-                        <span>{{ item.status == 0 ? '停售' : '在售' }}</span>
+                        <span>{{ item.status == 0 ? 'Disabled' : 'Enabled' }}</span>
                         <span>{{ Number(item.price)/100 }}</span>
                       </div>
                     </el-checkbox>
@@ -324,7 +324,7 @@
           </div>
           <div class="ritCont">
             <div class="tit">
-              已选菜品({{ checkedList.length }})
+              Include({{ checkedList.length }})
             </div>
             <div class="items">
               <div
@@ -333,7 +333,7 @@
                 class="item"
               >
                 <span>{{ item.dishName }}</span>
-                <span class="price">￥ {{ Number(item.price)/100 }} </span>
+                <span class="price">$ {{ Number(item.price)/100 }} </span>
                 <span
                   class="del"
                   @click="delCheck(ind)"
@@ -405,12 +405,12 @@
             return {
               name: {
                 required: true,
-                message: '请输入套餐名称',
+                message: 'Please input combo name',
                 trigger: 'blur',
               },
               idType: {
                 required: true,
-                message: '请选择套餐分类',
+                message: 'Please choose combo category',
                 trigger: 'change',
               },
               price: {
@@ -418,17 +418,17 @@
                 // 'message': '请输入套餐价格',
                 validator: (rules, value, callback) => {
                     if (!value) {
-                      callback(new Error('请填写菜品价格'))
+                      callback(new Error('Please input price'))
                     } else {
                       const reg = /^\d+(\.\d{0,2})?$/
                       if (reg.test(value)) {
                         if(value < 10000){
                           callback()
                         }else{
-                          callback(new Error('菜品价格小于10000'))
+                          callback(new Error('Price no more than 10000'))
                         }
                       } else {
-                        callback(new Error('菜品价格格式只能为数字,且最多保留两位小数'))
+                        callback(new Error('Price must be numbers'))
                       }
                     }
                   },
@@ -470,7 +470,7 @@
                 this.ruleForm.idType = res.data.categoryId
                 // this.ruleForm.password = ''
               } else {
-                this.$message.error(res.msg || '操作失败')
+                this.$message.error(res.msg || 'Error')
               }
             })
           },
@@ -483,7 +483,7 @@
               if (res.code === 1) {
                 this.setMealList = res.data.map((obj) => ({ ...obj, idType: obj.id }))
               } else {
-                this.$message.error(res.msg || '操作失败')
+                this.$message.error(res.msg || 'Error')
               }
             })
           },
@@ -539,11 +539,11 @@
                 prams.status = this.ruleForm ? 1 : 0
                 prams.categoryId = this.ruleForm.idType
                 if(prams.setmealDishes.length < 1){
-                  this.$message.error('请选择菜品！')
+                  this.$message.error('Choose Dishes！')
                   return 
                 }
                 if(!this.imageUrl){
-                  this.$message.error('请上传套餐图片')
+                  this.$message.error('Upload Images')
                   return 
                 }
                 // delete prams.dishList
@@ -552,7 +552,7 @@
                   addSetmeal(prams)
                     .then((res) => {
                       if (res.code === 1) {
-                        this.$message.success('套餐添加成功！')
+                        this.$message.success('Combo Added！')
                         if (!st) {
                           this.goBack()
                         } else {
@@ -574,25 +574,25 @@
                           this.imageUrl = ''
                         }
                       } else {
-                        this.$message.error(res.msg || '操作失败')
+                        this.$message.error(res.msg || 'Error')
                       }
                     })
                     .catch((err) => {
-                      this.$message.error('请求出错了：' + err)
+                      this.$message.error('Request Failed：' + err)
                     })
                 } else {
                   delete prams.updateTime
                   editSetmeal(prams)
                     .then((res) => {
                       if (res.code === 1) {
-                        this.$message.success('套餐修改成功！')
+                        this.$message.success('Update Successfully！')
                         this.goBack()
                       } else {
-                        this.$message.error(res.msg || '操作失败')
+                        this.$message.error(res.msg || 'Error')
                       }
                     })
                     .catch((err) => {
-                      this.$message.error('请求出错了：' + err)
+                      this.$message.error('Request Failed：' + err)
                     })
                 }
               } else {
@@ -615,12 +615,12 @@
               const suffix = file.name.split('.')[1]
               const size = file.size / 1024 / 1024 < 2
               if(['png','jpeg','jpg'].indexOf(suffix) < 0){
-                this.$message.error('上传图片只支持 png、jpeg、jpg 格式！')
+                this.$message.error('Images only support png、jpeg、jpg format！')
                 this.$refs.upload.clearFiles()
                 return false
               }
               if(!size){
-                this.$message.error('上传文件大小不能超过 2MB!')
+                this.$message.error('Image size no more than 2MB!')
                 return false
               }
               return file
@@ -631,7 +631,7 @@
               {
                 id: '5',
                 url: '/backend/page/combo/list.html',
-                name: '套餐管理',
+                name: 'Combo',
               },
               false
             )

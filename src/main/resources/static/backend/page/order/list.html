@@ -75,7 +75,7 @@
         <el-table-column prop="orderTime" label="下单时间" min-width="100"></el-table-column>
         <el-table-column prop="amount" label="实收金额">
           <template slot-scope="{ row }">
-            <span>￥{{ row.amount }}</span>
+            <span>${{ row.amount }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="btn" label="操作">
@@ -223,7 +223,7 @@
                 this.counts = res.data.total
               }
             }).catch(err => {
-              this.$message.error('请求出错了：' + err)
+              this.$message.error('Request Failed：' + err)
             })
           },
           handleQuery() {
@@ -270,10 +270,10 @@
                     this.$message.success(status === 3 ? '订单已派送' : '订单已完成')
                     this.init()
                   } else {
-                    this.$message.error(res.msg || '操作失败')
+                    this.$message.error(res.msg || 'Error')
                   }
                 }).catch(err => {
-                  this.$message.error('请求出错了：' + err)
+                  this.$message.error('Request Failed：' + err)
                 })
             })
             const params = {

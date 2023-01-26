@@ -22,7 +22,7 @@
       <div class="tableBar">
         <el-input
           v-model="input"
-          placeholder="请输入员工姓名"
+          placeholder="Please Input Name"
           style="width: 250px"
           clearable
            @keyup.enter.native="handleQuery"
@@ -38,7 +38,7 @@
           type="primary"
           @click="addMemberHandle('add')"
         >
-          + 添加员工
+          + Add Member
         </el-button>
       </div>
       <el-table
@@ -48,23 +48,23 @@
       >
         <el-table-column
           prop="name"
-          label="员工姓名"
+          label="Name"
         ></el-table-column>
         <el-table-column
           prop="username"
-          label="账号"
+          label="Username"
         ></el-table-column>
         <el-table-column
           prop="phone"
-          label="手机号"
+          label="Phone No."
         ></el-table-column>
-        <el-table-column label="账号状态">
+        <el-table-column label="Status">
           <template slot-scope="scope">
-            {{ String(scope.row.status) === '0' ? '已禁用' : '正常' }}
+            {{ String(scope.row.status) === '0' ? 'Banned' : 'Normal' }}
           </template>
         </el-table-column>
         <el-table-column
-          label="操作"
+          label="Operations"
           width="160"
           align="center"
         >
@@ -76,7 +76,7 @@
               @click="addMemberHandle(scope.row.id)"
               :class="{notAdmin:user !== 'admin'}"
             >
-              编辑
+              Update
             </el-button>
             <el-button
               type="text"
@@ -85,7 +85,7 @@
               @click="statusHandle(scope.row)"
               v-if="user === 'admin'"
             >
-              {{ scope.row.status == '1' ? '禁用' : '启用' }}
+              {{ scope.row.status == '1' ? 'Disable' : 'Enable' }}
             </el-button>
           </template>
         </el-table-column>
@@ -144,7 +144,7 @@
                 this.counts = res.data.total
               }
             }).catch(err => {
-              this.$message.error('请求出错了：' + err)
+              this.$message.error('Request Failed：' + err)
             })
           },
           handleQuery() {
@@ -157,13 +157,13 @@
               window.parent.menuHandle({
                 id: '2',
                 url: '/backend/page/member/add.html',
-                name: '添加员工'
+                name: 'Add Member'
               },true)
             } else {
               window.parent.menuHandle({
                 id: '2',
                 url: '/backend/page/member/add.html?id='+st,
-                name: '修改员工'
+                name: 'Update Member'
               },true)
             }
           },
@@ -171,19 +171,19 @@
           statusHandle (row) {
             this.id = row.id
             this.status = row.status
-            this.$confirm('确认调整该账号的状态?', '提示', {
-              'confirmButtonText': '确定',
-              'cancelButtonText': '取消',
+            this.$confirm('Confirm Update Status?', 'Notice', {
+              'confirmButtonText': 'Confirm',
+              'cancelButtonText': 'Cancel',
               'type': 'warning'
               }).then(() => {
               enableOrDisableEmployee({ 'id': this.id, 'status': !this.status ? 1 : 0 }).then(res => {
                 console.log('enableOrDisableEmployee',res)
                 if (String(res.code) === '1') {
-                  this.$message.success('账号状态更改成功！')
+                  this.$message.success('Status Updated！')
                   this.handleQuery()
                 }
               }).catch(err => {
-                this.$message.error('请求出错了：' + err)
+                this.$message.error('Request Failed：' + err)
               })
             })
           },

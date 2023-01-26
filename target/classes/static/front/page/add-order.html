@@ -52,7 +52,7 @@
                                 <div class="numPrice">
                                     <span class="num">x{{item.number}}</span>
                                     <div class="price">
-                                        <span class="spanMoney">￥</span>{{item.amount}}</div>
+                                        <span class="spanMoney">$</span>{{item.amount}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                 <div :class="{imgCartActive: cartData && cartData.length > 0, imgCart:!cartData || cartData.length<1}"></div>
                 <div :class="{divGoodsNum:1===1, moreGoods:cartData && cartData.length > 99}" v-if="cartData && cartData.length > 0">{{ goodsNum }}</div>
                 <div class="divNum">
-                    <span>￥</span>
+                    <span>$</span>
                     <span>{{goodsPrice}}</span>
                 </div>
                 <div class="divPrice"></div>
