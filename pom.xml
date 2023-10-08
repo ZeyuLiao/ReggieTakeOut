@@ -77,6 +77,27 @@
 			<version>1.1.23</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jmockit</groupId>
+			<artifactId>jmockit</artifactId>
+			<version>1.49</version> <!-- 使用最新版本 -->
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<version>2.0.9</version> <!-- 使用最新版本 -->
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>4.0.0</version> <!-- 使用最新版本 -->
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -91,6 +112,19 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3</version> <!-- 使用适当的版本 -->
+
+				<!-- 配置 -javaagent 参数 -->
+				<configuration>
+					<argLine>
+						-javaagent:C:\Users\ZeyuLiao\.m2\repository\org\jmockit\jmockit\1.49\jmockit-1.49.jar
+					</argLine>
 				</configuration>
 			</plugin>
 		</plugins>
